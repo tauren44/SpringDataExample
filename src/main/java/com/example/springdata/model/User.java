@@ -28,13 +28,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
     private String name;
 
-    @Column
     private Integer age;
 
-    @Column
     private Integer salary;
 
     @Email

@@ -35,19 +35,16 @@ public class ApplicationConfig {
     private String ddlAuto;
 
     @Bean
-    public DriverManagerDataSource DataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    public DriverManagerDataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource(url, user, password);
         dataSource.setDriverClassName(driver);
-        dataSource.setUrl(url);
-        dataSource.setUsername(user);
-        dataSource.setPassword(password);
         return dataSource;
     }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean emFactory = new LocalContainerEntityManagerFactoryBean();
-        emFactory.setDataSource((DataSource()));
+        emFactory.setDataSource((dataSource()));
         emFactory.setPersistenceProviderClass(HibernatePersistenceProvider.class);
         emFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         Properties jpaProperties = new Properties();

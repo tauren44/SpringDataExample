@@ -26,11 +26,9 @@ public class SpringDataApplicationTests {
     @Autowired
     private UserService service;
 
-    private User user;
-
     @Before
     public void init() {
-        user = new User()
+        User user = new User()
                 .setName("vasya")
                 .setAge(25)
                 .setSalary(2000)
@@ -41,7 +39,7 @@ public class SpringDataApplicationTests {
 
     @After
     public void drop(){
-        service.deleteUser(user.getId());
+        service.deleteUser(service.findOneByEmail("vasya@email.com").getId());
     }
 
     @Test
@@ -58,6 +56,7 @@ public class SpringDataApplicationTests {
 
     @Test
     public void shouldUpdateUser() {
+        User user = service.findOneByEmail("vasya@gmail.com");
         user.setName("TEST");
         service.updateUser(user);
         User updated = service.findUserById(user.getId());
@@ -66,6 +65,7 @@ public class SpringDataApplicationTests {
 
     @Test
     public void shouldReturnUserById() {
+        User user = service.findOneByEmail("vasya@gmail.com");
         Long id = user.getId();
         User target = service.findUserById(id);
         assertEquals(user, target);

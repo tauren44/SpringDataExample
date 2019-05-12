@@ -1,6 +1,6 @@
 package com.example.springdata.service;
 
-import lombok.AllArgsConstructor;
+import com.example.springdata.exceptions.MyMessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -26,7 +26,7 @@ public class EmailServiceImpl implements EmailService {
             helper.setText(text);
             this.emailSender.send(message);
         } catch (MessagingException messageException) {
-            throw new RuntimeException(messageException);
+            throw new MyMessagingException(messageException);
         }
     }
 }

@@ -32,10 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserById(Long id) {
-        if(repository.findById(id).isPresent()) {
-            return repository.findById(id).get();
-        }
-        else throw new IllegalArgumentException("Illegal id");
+        return repository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
     @Override

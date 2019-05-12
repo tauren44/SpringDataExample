@@ -1,18 +1,15 @@
 package com.example.springdata.util;
 
 import com.example.springdata.model.User;
-import com.example.springdata.service.UserService;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-@Component
-@AllArgsConstructor(onConstructor = @__(@Autowired))
-public class UserValidator implements Validator {
+import java.util.regex.Pattern;
 
-    private UserService service;
+@Component
+public class UserValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -22,11 +19,18 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         User user = (User) o;
+        ValidationUtils.rejectIfEmpty(errors, "name", "user.name.empty");
+        ValidationUtils.rejectIfEmpty(errors, "age", "user.age.empty");
+        ValidationUtils.rejectIfEmpty(errors, "email", "user.email.empty");
+        ValidationUtils.rejectIfEmpty(errors, "sex", "user.sex.empty");
+        ValidationUtils.rejectIfEmpty(errors, "salary", "user.salary.empty");
         if (user.getAge() < 0) {
-            errors.rejectValue("age", "value.negative");
+            errors.rejectValue("age", "user.age.invalid");
         }
-        if(service.findOneByEmail(user.getEmail()) != null) {
-            errors.rejectValue("email", "email already exists");
+        Pattern pattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+                Pattern.CASE_INSENSITIVE);
+        if (!(pattern.matcher(user.getEmail()).matches())) {
+            errors.rejectValue("email", "user.email.invalid");
         }
     }
 }

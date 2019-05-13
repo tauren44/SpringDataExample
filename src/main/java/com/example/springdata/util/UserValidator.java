@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 @Component
 public class UserValidator implements Validator {
+    private static final String EMAIL_PATTERN = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -27,8 +28,7 @@ public class UserValidator implements Validator {
         if (user.getAge() < 0) {
             errors.rejectValue("age", "user.age.invalid");
         }
-        Pattern pattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
-                Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN, Pattern.CASE_INSENSITIVE);
         if (!(pattern.matcher(user.getEmail()).matches())) {
             errors.rejectValue("email", "user.email.invalid");
         }

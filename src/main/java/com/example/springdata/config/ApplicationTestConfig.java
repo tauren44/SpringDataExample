@@ -31,8 +31,7 @@ public class ApplicationTestConfig {
     @Value("${ddl-auto}")
     private String ddlAuto;
 
-    private final
-    LocalContainerEntityManagerFactoryBean entityManagerFactoryBean;
+    private final LocalContainerEntityManagerFactoryBean entityManagerFactoryBean;
 
     @Autowired
     public ApplicationTestConfig(LocalContainerEntityManagerFactoryBean entityManagerFactoryBean) {

@@ -1,6 +1,6 @@
 package com.example.springdata;
 
-import com.example.springdata.config.ApplicationConfig;
+import com.example.springdata.config.ApplicationTestConfig;
 import com.example.springdata.model.User;
 import com.example.springdata.service.UserService;
 import lombok.NoArgsConstructor;
@@ -19,7 +19,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = ApplicationConfig.class)
+@ContextConfiguration(classes = ApplicationTestConfig.class)
 @NoArgsConstructor
 public class SpringDataApplicationTests {
 
